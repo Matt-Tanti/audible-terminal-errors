@@ -1,0 +1,56 @@
+{
+  "name": "audible-terminal-errors",
+  "displayName": "Audible terminal errors",
+  "description": "Plays a sound when a terminal command or task fails. Highly customizable and Antigravity-aware.",
+  "version": "1.0.0",
+  "publisher": "Matt-Tanti",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Audible terminal errors",
+      "properties": {
+        "audibleErrors.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable the sound on command failure."
+        },
+        "audibleErrors.soundPath": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to a custom .mp3 or .wav file. If empty, the default 'faaa' sound will be used."
+        },
+        "audibleErrors.ignoredTerminals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "antigravity",
+            "agent",
+            "copilot",
+            "claude",
+            "task",
+            "extension"
+          ],
+          "description": "Terminals with names containing these strings will not trigger a sound."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.93.0",
+    "@types/node": "^18.x",
+    "typescript": "^5.x"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}
