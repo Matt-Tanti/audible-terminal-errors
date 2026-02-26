@@ -43,12 +43,12 @@ You can customize the sound in two ways:
 1. Open VS Code Settings (`Ctrl+,`).
 2. Search for `Audible terminal errors`.
 3. Find the **Sound Path** setting.
-4. Enter the **absolute path** to your custom `.mp3` or `.wav` file (e.g., `/home/user/sounds/custom_sound.mp3`). If empty, the default 'Windows Error' sound will be used.
+4. Enter the **absolute path** to your custom `.mp3` or `.wav` file (e.g., `/home/user/sounds/custom_sound.wav`). If empty, the default 'Windows Error' sound will be used.
 
 ### Method B: Replace Default Sound
 
-1. Replace the file `sounds/windows-error.mp3` with your own sound file.
-2. Ensure it is named exactly `windows-error.mp3`.
+1. Replace the file `sounds/windows-error.wav` with your own sound file.
+2. Ensure it is named exactly `windows-error.wav`.
 3. Re-package or re-compile.
 
 ## 🛠️ Additional Settings
