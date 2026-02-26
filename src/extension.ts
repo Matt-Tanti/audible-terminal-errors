@@ -73,7 +73,15 @@ function playSound(context: vscode.ExtensionContext) {
   if (customPath && fs.existsSync(customPath)) {
     soundPath = customPath;
   } else {
-    soundPath = path.join(context.extensionPath, 'sounds', 'windows-error.mp3');
+    soundPath = path.join(context.extensionPath, 'sounds', 'windows-error.wav');
+  }
+
+  // Diagnostics: Log the path and whether it exists
+  if (!fs.existsSync(soundPath)) {
+    console.error(
+      `Audible terminal errors: Sound file not found at ${soundPath}`,
+    );
+    return;
   }
 
   const platform = process.platform;
@@ -82,8 +90,10 @@ function playSound(context: vscode.ExtensionContext) {
   if (platform === 'darwin') {
     cmd = `afplay "${soundPath}"`;
   } else if (platform === 'linux') {
-    // Try multiple common players on linux
-    cmd = `mpg123 -q "${soundPath}" 2>/dev/null || aplay "${soundPath}" 2>/dev/null || paplay "${soundPath}" 2>/dev/null`;
+    // Try multiple common players on linux.
+    // aplay is the most common but requires WAV.
+    // paplay (pulseaudio) and play (sox) are also common.
+    cmd = `aplay -q "${soundPath}" 2>/dev/null || paplay "${soundPath}" 2>/dev/null || play -q "${soundPath}" 2>/dev/null || ffplay -nodisp -autoexit "${soundPath}" 2>/dev/null`;
   } else if (platform === 'win32') {
     cmd = `powershell -c "$p = New-Object System.Windows.Media.MediaPlayer; $p.Open('${soundPath}'); $p.Play(); Start-Sleep 3"`;
   } else {
@@ -93,7 +103,7 @@ function playSound(context: vscode.ExtensionContext) {
   cp.exec(cmd, (err) => {
     if (err) {
       console.error(
-        'Audible terminal errors failed to play sound:',
+        `Audible terminal errors failed to play sound (cmd: ${cmd}):`,
         err.message,
       );
     }

@@ -17,19 +17,15 @@ A VS Code extension that plays a sound whenever a terminal command or task fails
 To package this into a `.vsix` file that you can install or share:
 
 1. Open a terminal in the project directory.
-2. Install the VS Code Extension Manager globally:
-   ```bash
-   npm install -g @vscode/vsce
-   ```
-3. Compile the code:
+2. Compile the code:
    ```bash
    yarn compile
    ```
-4. Package the extension:
+3. Package the extension (using the local dependency):
    ```bash
-   vsce package
+   yarn package
    ```
-5. A `.vsix` file (e.g., `audible-terminal-errors-1.0.0.vsix`) will be created.
+4. A `.vsix` file (e.g., `audible-terminal-errors-1.0.0.vsix`) will be created.
 
 ### 3. Installing the Extension
 
